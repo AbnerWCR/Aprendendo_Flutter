@@ -7,13 +7,13 @@ class BytebankApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: FormularioTranferencia(),
+        body: ListaTransferencias(),
       ),
     );
   }
 }
 
-class FormularioTranferencia extends StatelessWidget {
+class FormularioTransferencia extends StatelessWidget {
   final TextEditingController _controladorCampoNumeroConta =
       TextEditingController();
   final TextEditingController _controladorCampoValor = TextEditingController();
@@ -102,6 +102,14 @@ class ListaTransferencias extends StatelessWidget {
         ItemTransferencia(Transferencia(200.0, 2000)),
         ItemTransferencia(Transferencia(300.0, 3000)),
       ]),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return FormularioTransferencia();
+            }));
+          },
+      ),
     );
   }
 }
