@@ -22,10 +22,23 @@ class FormularioTranferencia extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          TextField(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+          child:
+          TextField(
+            style: TextStyle(
+              fontSize: 24.0,
+            ),
+            decoration: InputDecoration(
+              labelText: 'Número da conta',
+              hintText: 'EX: 0000'
+            ),
+            keyboardType: TextInputType.number,
+          ),
+          ),
           TextField(),
           RaisedButton(),
-        ]
+        ],
       ),
     );
   }
