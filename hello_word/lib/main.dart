@@ -14,6 +14,10 @@ class BytebankApp extends StatelessWidget {
 }
 
 class FormularioTranferencia extends StatelessWidget {
+  final TextEditingController _controladorCampoNumeroConta =
+      TextEditingController();
+  final TextEditingController _controladorCampoValor = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,23 +28,58 @@ class FormularioTranferencia extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(16.0),
-          child:
-          TextField(
-            style: TextStyle(
-              fontSize: 24.0,
+            child: TextField(
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+              controller: _controladorCampoNumeroConta,
+              decoration: InputDecoration(
+                  labelText: 'Número da conta', hintText: 'EX: 0000'),
+              keyboardType: TextInputType.number,
             ),
-            decoration: InputDecoration(
-              labelText: 'Número da conta',
-              hintText: 'EX: 0000'
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+              controller: _controladorCampoValor,
+              decoration: InputDecoration(
+                icon: Icon(Icons.monetization_on),
+                labelText: 'Valor',
+                hintText: 'Ex: 0.00',
+              ),
+              keyboardType: TextInputType.number,
             ),
-            keyboardType: TextInputType.number,
           ),
+          RaisedButton(
+            child: Text('Confimar'),
+            onPressed: () {
+              debugPrint('Confirmar');
+              final int numeroConta =
+                  int.tryParse(_controladorCampoNumeroConta.text);
+              final double valor = double.tryParse(_controladorCampoValor.text);
+              if (numeroConta != null && valor != null) {
+                final transferenciaCriada = Transferencia(valor, numeroConta);
+                debugPrint('$transferenciaCriada');
+              }
+            },
           ),
-          TextField(),
-          RaisedButton(),
         ],
       ),
     );
+  }
+}
+
+class Transferencia {
+  final double valor;
+  final int numeroConta;
+
+  Transferencia(this.valor, this.numeroConta);
+  @override
+  String toString() {
+    return 'Transferencia{valor: $valor, numeroConta: $numeroConta}';
   }
 }
 
@@ -72,11 +111,4 @@ class ItemTransferencia extends StatelessWidget {
       subtitle: Text(_transferencia.numeroConta.toString()),
     ));
   }
-}
-
-class Transferencia {
-  final double valor;
-  final int numeroConta;
-
-  Transferencia(this.valor, this.numeroConta);
 }
