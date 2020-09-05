@@ -14,8 +14,7 @@ class BytebankApp extends StatelessWidget {
 }
 
 class FormularioTransferencia extends StatelessWidget {
-  final TextEditingController _controladorCampoNumeroConta =
-      TextEditingController();
+  final TextEditingController _controladorCampoNumeroConta = TextEditingController();
   final TextEditingController _controladorCampoValor = TextEditingController();
 
   @override
@@ -37,19 +36,21 @@ class FormularioTransferencia extends StatelessWidget {
               icone: Icons.monetization_on),
           RaisedButton(
             child: Text('Confimar'),
-            onPressed: () => _criaTransferencia(),
+            onPressed: () => _criaTransferencia(context),
           ),
         ],
       ),
     );
   }
 
-  void _criaTransferencia() {
+  void _criaTransferencia(BuildContext context) {
     final int numeroConta = int.tryParse(_controladorCampoNumeroConta.text);
     final double valor = double.tryParse(_controladorCampoValor.text);
     if (numeroConta != null && valor != null) {
       final transferenciaCriada = Transferencia(valor, numeroConta);
+      debugPrint('Criando transferencia');
       debugPrint('$transferenciaCriada');
+      Navigator.pop(context, transferenciaCriada);
     }
   }
 }
@@ -104,11 +105,16 @@ class ListaTransferencias extends StatelessWidget {
       ]),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context){
-              return FormularioTransferencia();
-            }));
-          },
+        onPressed: () {
+          final Future<Transferencia> future =
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return FormularioTransferencia();
+          }));
+          future.then((transferenciaRecebida) {
+            debugPrint('chegou no then future');
+            debugPrint('$transferenciaRecebida');
+          });
+        },
       ),
     );
   }
