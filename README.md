@@ -5,3 +5,7 @@ Etapas:
 - [ ] Widget
     - [ ] Stateless
     - [ ] Stateful
+- [ ] Refatorar código
+- [ ] Interação entre páginas
+     - [ ] Navigator
+--------------------------------------------------------------------------------------------------------------
