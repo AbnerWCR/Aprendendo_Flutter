@@ -28,24 +28,21 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          final Future<Transferencia> future =
               Navigator.push(context, MaterialPageRoute(builder: (context) {
             return FormularioTransferencia();
-          }));
-          future.then((transferenciaRecebida) {
-            Future.delayed(Duration(seconds: 0), (){
-            debugPrint('chegou no then future');
-            debugPrint('$transferenciaRecebida');
-            if (transferenciaRecebida != null) {
-              setState(() {
-              widget._transferencias.add(transferenciaRecebida);
-              });
-            }
-            });
-          });
+          })).then(
+            (transferenciaRecebida) => _atualiza(transferenciaRecebida),  
+          );
         },
       ),
     );
+  }
+void _atualiza(Transferencia transferenciaRecebida) {
+    if (transferenciaRecebida != null) {
+        setState(() {
+          widget._transferencias.add(transferenciaRecebida);
+       });
+     }
   }
 }
 class ItemTransferencia extends StatelessWidget {
