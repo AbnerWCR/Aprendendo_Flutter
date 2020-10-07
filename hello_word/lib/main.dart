@@ -6,16 +6,28 @@ class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: ListaTransferencias(),
+      theme: ThemeData(
+        primaryColor: Colors.green[500],
+        accentColor: Colors.blueAccent[120],
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.blueAccent[120],
+          textTheme: ButtonTextTheme.primary,
+        )
       ),
+      home: ListaTransferencias(),
     );
   }
 }
 
-class FormularioTransferencia extends StatelessWidget {
+class FormularioTransferencia extends StatefulWidget {
+  @override
+  _FormularioTransferenciaState createState() => _FormularioTransferenciaState();
+}
+
+class _FormularioTransferenciaState extends State<FormularioTransferencia> {
   final TextEditingController _controladorCampoNumeroConta =
       TextEditingController();
+
   final TextEditingController _controladorCampoValor = TextEditingController();
 
   @override
@@ -24,24 +36,27 @@ class FormularioTransferencia extends StatelessWidget {
       appBar: AppBar(
         title: Text('Criando Tranferência'),
       ),
-      body: Column(
+      body: SingleChildScrollView(
+      child: Column(
         children: <Widget>[
           Editor(
               controlador: _controladorCampoNumeroConta,
               rotulo: 'Número da Conta',
-              dica: 'Ex: 0000'),
+              dica: 'Ex: 0000',
+              ),
           Editor(
               controlador: _controladorCampoValor,
               rotulo: 'Valor',
               dica: 'Ex: 0.00',
-              icone: Icons.monetization_on),
+              icone: Icons.monetization_on,
+              ),
           RaisedButton(
             child: Text('Confimar'),
             onPressed: () => _criaTransferencia(context),
           ),
         ],
       ),
-    );
+    ));
   }
 
   void _criaTransferencia(BuildContext context) {
@@ -107,7 +122,8 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Transferências')),
+      appBar: AppBar(
+        title: Text('Transferências')),
       body: ListView.builder(
         itemCount: widget._transferencias.length,
         itemBuilder: (context, indice) {
@@ -123,12 +139,15 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
             return FormularioTransferencia();
           }));
           future.then((transferenciaRecebida) {
+            Future.delayed(Duration(seconds: 0), (){
             debugPrint('chegou no then future');
             debugPrint('$transferenciaRecebida');
             if (transferenciaRecebida != null) {
+              setState(() {
               widget._transferencias.add(transferenciaRecebida);
+              });
             }
-            ;
+            });
           });
         },
       ),
