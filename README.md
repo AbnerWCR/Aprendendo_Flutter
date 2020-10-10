@@ -7,11 +7,11 @@ Etapas:
     - [x] Stateful
 - [x] Refatorar código
 - [x] Interação entre páginas
-     - [x] Navigator
+     - Navigator
 - [ ] Interação com Banco de dados
 - [ ] Adicionar dependências
 - [ ] Processamentos Assíncronos
-        Future, async, await
+     - Future, async, await
 - [ ] FutureBuilder
 
 --------------------------------------------------------------------------------------------------------------
