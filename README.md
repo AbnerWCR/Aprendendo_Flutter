@@ -8,10 +8,10 @@ Etapas:
 - [x] Refatorar código
 - [x] Interação entre páginas
      - Navigator
-- [ ] Interação com Banco de dados
-- [ ] Adicionar dependências
-- [ ] Processamentos Assíncronos
+- [x] Interação com Banco de dados
+- [x] Adicionar dependências
+- [x] Processamentos Assíncronos
      - Future, async, await
-- [ ] FutureBuilder
+- [x] FutureBuilder
 
 --------------------------------------------------------------------------------------------------------------
